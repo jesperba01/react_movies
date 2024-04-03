@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import './App.css';
 import axios from 'axios';
-import { NamedTupleMember } from 'typescript';
+import  NamedTupleMember  from 'typescript';
+import Card from 'react-bootstrap/Card';
+import { CardTitle } from 'react-bootstrap';
+
+
 
 interface Movies{
   id: number;
@@ -30,17 +34,19 @@ useEffect(() =>{
   return (
     <div className="App">
       {movies.map((items) => (
-        <div className="movieContainer" key={items.id}>
-          <h2>{items.title}</h2>
-          {items.poster_path && (
-            <img src={`https://image.tmdb.org/t/p/w200${items.poster_path}`} alt={`${items.title} Poster`}/>
+        <Card className="movieContainer shadow">
+        {items.poster_path && (
+            <Card.Img src={`https://image.tmdb.org/t/p/w200${items.poster_path}`} alt={`${items.title} Poster`}/>
           )}
-
-          <p>{items.release_date}</p>
-        </div>
+        <Card.Body className="text-center">
+          <Card.Title>{items.title}</Card.Title>
+          <Card.Text>{items.release_date}</Card.Text>
+        </Card.Body>
+      </Card>
       ))}
     </div>
   );
 }
+
 
 export default App;
