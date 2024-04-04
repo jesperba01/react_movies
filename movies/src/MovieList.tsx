@@ -11,22 +11,34 @@ interface Movie {
   vote_average: number;
 }
 
-const MovieList: React.FC = () => {
+interface MovieListProps {
+  list: string | null;
+}
+
+const MovieList: React.FC<MovieListProps> = ({ list }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const apiKey = "4ba04b36da1b0f7da8622918c9908ef8";
   const popular = "https://api.themoviedb.org/3/movie/popular";
-  const toprated = "https://api.themoviedb.org/3/movie/top_rated"; 
+  const toprated = "https://api.themoviedb.org/3/movie/top_rated";
 
   useEffect(() => {
-    fetchData(popular);
-  }, []);
+    if (list) {
+      fetchData(list);
+    }
+  }, [list]);
 
-  const fetchData = (url: string) => { 
+  const fetchData = (selectedList: string) => {
+    const url = selectedList === 'toprated' ? toprated : popular;
     axios.get<{ results: Movie[] }>(`${url}?api_key=${apiKey}`).then((response) => {
       const result = response.data.results;
       setMovies(result);
     });
   };
+
+  // Render nothing if list is not selected
+  if (!list) {
+    return null;
+  }
 
   return (
     <div className="App">
