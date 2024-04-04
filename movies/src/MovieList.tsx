@@ -1,51 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import CircularProgress from '@mui/joy/CircularProgress';
 import MovieCard from './MovieCard';
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  release_date: string;
-  vote_average: number;
-}
+import { fetchMovies, Movie } from './Api'; // Import fetchMovies function
 
 interface MovieListProps {
-  list: string | null;
+  list: string; // Accepts string representing the type of list
+  isHomePage?: boolean; // Optional prop to indicate whether it's the homepage
 }
 
-const MovieList: React.FC<MovieListProps> = ({ list }) => {
+const MovieList: React.FC<MovieListProps> = ({ list, isHomePage = false }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const apiKey = "4ba04b36da1b0f7da8622918c9908ef8";
-  const popular = "https://api.themoviedb.org/3/movie/popular";
-  const toprated = "https://api.themoviedb.org/3/movie/top_rated";
 
   useEffect(() => {
-    if (list) {
-      fetchData(list);
-    }
+    fetchData(list); // Fetch movies when list prop changes
   }, [list]);
 
-  const fetchData = (selectedList: string) => {
-    const url = selectedList === 'toprated' ? toprated : popular;
-    axios.get<{ results: Movie[] }>(`${url}?api_key=${apiKey}`).then((response) => {
-      const result = response.data.results;
-      setMovies(result);
-    });
+  const fetchData = async (selectedList: string) => {
+    try {
+      const result = await fetchMovies(selectedList);
+      // Limit the result to 5 movies if it's the homepage
+      setMovies(isHomePage ? result.slice(0, 5) : result);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
   };
 
-  // Render nothing if list is not selected
-  if (!list) {
-    return null;
-  }
-
   return (
-    <div className="App">
+    <div className={`movie-list ${isHomePage ? 'homepage-list' : ''}`}>
       {movies.length === 0 ? (
         <CircularProgress />
       ) : (
-        movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+        <div className="movieContainer">
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
       )}
     </div>
   );

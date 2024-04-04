@@ -4,16 +4,16 @@ import MovieList from './MovieList';
 
 const HomePage: React.FC = () => {
   return (
-    <Container>
-      <h1>Welcome to Movie Lists</h1>
-      <p>Here are some sample lists:</p>
-      <div className="lists-container">
-        <MovieList list="popular" />
-        <MovieList list="toprated" />
-        {/* Add more MovieList components for additional lists */}
+    <div className="movie-list">
+        <h2 className="">Welcome to Movie Lists</h2>
+      <div>
+        <MovieList list="popular" isHomePage={true} />
       </div>
-      <p>Additional information or content can be placed here.</p>
-    </Container>
+      
+      <div>
+        <MovieList list="toprated" isHomePage={true} />
+      </div>
+    </div>
   );
 };
 
