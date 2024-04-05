@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Update import statement
 import NavBar from './NavBar'; // Import the NavBar component
 import HomePage from './HomePage';
 import MoviePage from './MoviePage';
@@ -10,12 +10,12 @@ const App: React.FC = () => {
     <Router>
       <div>
         <NavBar /> {/* Include the NavBar component */}
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/movies/:category" component={MoviePage} />
-          <Route path="/tv/:category" component={TVPage} />
+        <Routes> {/* Replace Switch with Routes */}
+          <Route path="/" element={<HomePage />} /> {/* Update syntax for Route */}
+          <Route path="/movies/:category" element={<MoviePage />} /> {/* Update syntax for Route */}
+          <Route path="/tv/:category" element={<TVPage />} /> {/* Update syntax for Route */}
           {/* Other routes */}
-        </Switch>
+        </Routes>
       </div>
     </Router>
   );
