@@ -1,43 +1,9 @@
-.movieContainer {
+.homePageContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  flex-direction: row;
-  max-height: 400px;
-  width: 70rem;
-  margin: 10px;
 }
 
-.movieContainer-p {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  width: 200px;
-}
-
-.movie-list {
-  display: grid;
-  justify-content: center;
-}
-
-.progress {
-  width: 50;
-  height: 50;
-}
-
-.movieImageContainer {
-  position: relative;
-}
-
-.movieImage {
-  width: 100%;
-  height: auto;
-}
-
-.pieOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 15%;
-  transform: translateX(-50%);
+.listContainer {
+  margin-top: 20px; /* Adjust the spacing between lists */
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import Pie from './Pie'; // Import your Pie component or CircularProgressbar component
+import Pie from './Pie';
+import './MovieCard.css';
 
 interface Movie {
   id: number;

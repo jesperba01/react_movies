@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import NavBar from './NavBar';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NavBar from './NavBar'; // Import the NavBar component
 import HomePage from './HomePage';
-import './App.css' 
+import MoviePage from './MoviePage';
+import TVPage from './TVPage';
 
-function App() {
-  const [selectedList, setSelectedList] = useState<string>('popular');
-
-  const handleSelectList = (list: string) => {
-    setSelectedList(list);
-  };
-
+const App: React.FC = () => {
   return (
-    <div>
-      <NavBar onSelectList={handleSelectList} /> {/* Pass the onSelectList prop */}
-      <HomePage />
-    </div>
+    <Router>
+      <div>
+        <NavBar /> {/* Include the NavBar component */}
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/movies/:category" component={MoviePage} />
+          <Route path="/tv/:category" component={TVPage} />
+          {/* Other routes */}
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
