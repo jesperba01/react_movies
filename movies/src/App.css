@@ -21,4 +21,23 @@
   justify-content: center;
 }
 
+.progress {
+  width: 50;
+  height: 50;
+}
 
+.movieImageContainer {
+  position: relative;
+}
+
+.movieImage {
+  width: 100%;
+  height: auto;
+}
+
+.pieOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 15%;
+  transform: translateX(-50%);
+}

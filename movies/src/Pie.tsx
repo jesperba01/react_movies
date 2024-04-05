@@ -1,52 +1,42 @@
 import React from 'react';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 interface PieProps {
   percentage: number;
-  colour: string;
+  textSize?: string; // Add a prop for specifying the text size
+  circleSize?: number; // Add a prop for specifying the size of the CircularProgressbar
+  className?: string; // Add className prop
 }
 
-const cleanPercentage = (percentage: number) => {
-  const isNegativeOrNaN = !Number.isFinite(+percentage) || percentage < 0;
-  const isTooHigh = percentage > 100;
-  return isNegativeOrNaN ? 0 : isTooHigh ? 100 : +percentage;
-};
+const Pie: React.FC<PieProps> = ({ percentage, textSize = "2em", circleSize = 50, className }) => {
+  const roundedPercentage = Math.round(percentage); // Round the percentage to the nearest whole number
 
-const Pie: React.FC<PieProps> = ({ percentage, colour }) => {
-  const pct = cleanPercentage(percentage);
-  const r = 70;
-  const circ = 2 * Math.PI * r;
-  const strokePct = ((100 - pct) * circ) / 100;
+  let pathColor = "white"; // Default color
+  if (percentage <= 35) {
+    pathColor = "red"; // Change color to red when percentage is 35% or less
+  } else if (percentage > 35 && percentage <= 70) {
+    pathColor = "yellow"; // Change color to yellow when percentage is between 35% and 70%
+  } else if (percentage > 70 && percentage <= 100) {
+    pathColor = "#0BDA51"; // Change color to orange when percentage is between 70% and 100%
+  }
+
   return (
-    <svg width={200} height={200}>
-      <circle
-        r={r}
-        cx={100}
-        cy={100}
-        fill="transparent"
-        stroke="lightgrey"
-        strokeWidth={r * 2}
-      ></circle>
-      <circle
-        r={r}
-        cx={100}
-        cy={100}
-        fill="transparent"
-        stroke={colour}
-        strokeWidth={r * 2}
-        strokeDasharray={circ}
-        strokeDashoffset={strokePct}
-        transform={`rotate(-90 100 100)`}
-      ></circle>
-      <text
-        x="50%"
-        y="50%"
-        dominantBaseline="central"
-        textAnchor="middle"
-        fontSize="1.5em"
-      >
-        {percentage.toFixed(0)}%
-      </text>
-    </svg>
+    <div className={className} style={{ width: circleSize, height: circleSize, borderRadius: '50%' }}>
+      <CircularProgressbar
+        value={percentage}
+        text={`${roundedPercentage}%`}
+        background
+        backgroundPadding={6}
+        styles={buildStyles({
+          backgroundColor: '#141414',
+          textColor: "#fff",
+          pathColor: pathColor,
+          trailColor: "rgba(0, 0, 0, 0.5)",
+          textSize: "1.5rem"
+        })}
+      />
+    </div>
   );
 };
 
