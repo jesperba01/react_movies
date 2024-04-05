@@ -9,7 +9,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
-        <NavBar /> {/* Include the NavBar component */}
+        <NavBar onSelectList={/* provide a function here */} onFetchHomeMovies={/* provide a function here */} /> {/* Include the NavBar component */}
         <Routes> {/* Replace Switch with Routes */}
           <Route path="/" element={<HomePage />} /> {/* Update syntax for Route */}
           <Route path="/movies/:category" element={<MoviePage />} /> {/* Update syntax for Route */}
