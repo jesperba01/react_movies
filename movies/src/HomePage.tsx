@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import MovieList from './MovieList';
 import { fetchMovies, Movie } from './Api';
-import NavBar from './NavBar';
 
 const HomePage: React.FC = () => {
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
-  const [showMovieLists, setShowMovieLists] = useState<boolean>(true); // State variable to control visibility
+  const [popularTVMovies, setPopularTVMovies] = useState<Movie[]>([]);
+  const [topRatedTVMovies, setTopRatedTVMovies] = useState<Movie[]>([]);
+  const [showMovieLists, setShowMovieLists] = useState<boolean>(true);
 
   useEffect(() => {
     fetchPopularMovies();
     fetchTopRatedMovies();
+    fetchPopularTVMovies();
+    fetchTopRatedTVMovies();
   }, []);
 
   const fetchPopularMovies = async () => {
     try {
-      const movies = await fetchMovies('popular');
+      const movies = await fetchMovies('popular', 5);
       setPopularMovies(movies);
     } catch (error) {
       console.error('Error fetching popular movies:', error);
@@ -24,24 +27,50 @@ const HomePage: React.FC = () => {
 
   const fetchTopRatedMovies = async () => {
     try {
-      const movies = await fetchMovies('toprated');
+      const movies = await fetchMovies('toprated', 5);
       setTopRatedMovies(movies);
     } catch (error) {
       console.error('Error fetching top rated movies:', error);
     }
   };
 
+  const fetchPopularTVMovies = async () => {
+    try {
+      const movies = await fetchMovies('popular_tv', 5);
+      setPopularTVMovies(movies);
+    } catch (error) {
+      console.error('Error fetching popular TV shows:', error);
+    }
+  };
+
+  const fetchTopRatedTVMovies = async () => {
+    try {
+      const movies = await fetchMovies('toprated_tv', 5);
+      setTopRatedTVMovies(movies);
+    } catch (error) {
+      console.error('Error fetching top rated TV shows:', error);
+    }
+  };
+
   return (
-    <div>
-      {showMovieLists && ( // Render movie lists only if showMovieLists is true
-        <div>
-          <div style={{ marginBottom: '20px' }}>
-            <h2>Popular</h2>
+    <div className="container">
+      {showMovieLists && (
+        <div className="">
+          <div className="">
+            <h2>Popular Movies</h2>
             <MovieList movies={popularMovies} isHomePage />
           </div>
-          <div>
-            <h2>Top Rated</h2>
+          <div className="">
+            <h2>Top Rated Movies</h2>
             <MovieList movies={topRatedMovies} isHomePage />
+          </div>
+          <div className="">
+            <h2>Popular TV Shows</h2>
+            <MovieList movies={popularTVMovies} isHomePage />
+          </div>
+          <div className="">
+            <h2>Top Rated TV Shows</h2>
+            <MovieList movies={topRatedTVMovies} isHomePage />
           </div>
         </div>
       )}

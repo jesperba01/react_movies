@@ -9,20 +9,23 @@ interface MovieListProps {
   isHomePage?: boolean;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ movies, isHomePage = false }) => {
+const MovieList: React.FC<MovieListProps> = ({ movies }) => {
   return (
-    <div className={`movie-list ${isHomePage ? 'homepage-list' : ''}`}>
-      <div className="movieContainer">
-        {movies.length === 0 ? (
+    <div className="row justify-content-center">
+      {movies.length === 0 ? (
+        <div className="col text-center">
           <CircularProgress />
-        ) : (
-          movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))
-        )}
-      </div>
+        </div>
+      ) : (
+        movies.map((movie) => (
+          <div key={movie.id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <MovieCard movie={movie} />
+          </div>
+        ))
+      )}
     </div>
   );
 };
+
 
 export default MovieList;

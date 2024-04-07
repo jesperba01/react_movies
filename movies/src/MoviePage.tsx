@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { fetchMovies, Movie } from './Api';
 import MovieList from './MovieList';
 
@@ -11,7 +10,8 @@ const MoviePage: React.FC<MoviePageProps> = ({ category }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    fetchMovies(category)
+    const movieCategory = category === 'toprated' ? 'top_rated' : 'popular';
+    fetchMovies(movieCategory)
       .then((data) => setMovies(data))
       .catch((error) => console.error('Error fetching movies:', error));
   }, [category]);

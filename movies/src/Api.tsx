@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from 'axios';
 
 export interface Movie {
@@ -11,24 +12,30 @@ export interface Movie {
 const apiKey = "4ba04b36da1b0f7da8622918c9908ef8";
 const popular = "https://api.themoviedb.org/3/movie/popular";
 const toprated = "https://api.themoviedb.org/3/movie/top_rated";
-const popular_tv = "https://api.themoviedb.org/3/tv/top_rated";
-const toprated_tv = "https://api.themoviedb.org/3/tv/popular";
+const popular_tv = "https://api.themoviedb.org/3/tv/popular";
+const toprated_tv = "https://api.themoviedb.org/3/tv/top_rated";
 
 export const fetchMovies = async (selectedList: string, limit?: number): Promise<Movie[]> => {
   try {
-    const url =
-      selectedList === 'toprated'
-        ? toprated
-        : selectedList === 'popular'
-        ? popular
-        : selectedList === 'toprated_tv'
-        ? toprated_tv
-        : popular_tv;
+    let url;
 
-    const response = await axios.get<{ results: Movie[] }>(`${url}?api_key=${apiKey}`);
+    if (selectedList === 'toprated') {
+      url = 'https://api.themoviedb.org/3/movie/top_rated?api_key=4ba04b36da1b0f7da8622918c9908ef8';
+    } else if (selectedList === 'popular') {
+      url = 'https://api.themoviedb.org/3/movie/popular?api_key=4ba04b36da1b0f7da8622918c9908ef8';
+    }
+    else if (selectedList === 'toprated_tv') {
+      url = 'https://api.themoviedb.org/3/tv/top_rated?api_key=4ba04b36da1b0f7da8622918c9908ef8';
+    } else if (selectedList === 'popular_tv') {
+      url = 'https://api.themoviedb.org/3/tv/popular?api_key=4ba04b36da1b0f7da8622918c9908ef8';
+    } else {
+      throw new Error('Invalid category selected');
+    }
+
+    const response = await axios.get<{ results: Movie[] }>(url);
     let result = response.data.results;
     if (limit) {
-      result = result.slice(0, limit); // Get the top `limit` movies
+      result = result.slice(0, limit);
     }
     return result.map(movie => ({
       ...movie,

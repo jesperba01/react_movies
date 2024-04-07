@@ -1,9 +1,0 @@
-.homePageContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.listContainer {
-  margin-top: 20px; /* Adjust the spacing between lists */
-}

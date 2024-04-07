@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { fetchMovies, Movie } from './Api';
 import MovieList from './MovieList';
 
-interface MoviePageProps {
+interface TVPageProps {
   category: string;
 }
 
-const TVPage: React.FC<MoviePageProps> = ({ category }) => {
+const TVPage: React.FC<TVPageProps> = ({ category }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    fetchMovies(category)
+    const tvCategory = category === 'toprated' ? 'toprated_tv' : 'popular_tv';
+    fetchMovies(tvCategory)
       .then((data) => setMovies(data))
-      .catch((error) => console.error('Error fetching movies:', error));
+      .catch((error) => console.error('Error fetching TV shows:', error));
   }, [category]);
 
   return (
