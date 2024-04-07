@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { fetchMovies, Movie } from './Api';
 import MovieList from './MovieList';
 
-interface TVPageProps {
-  category: string;
-}
-
-const TVPage: React.FC<TVPageProps> = ({ category }) => {
+const TVPage: React.FC = () => {
+  const { category = 'popular' } = useParams(); // Set default value for category
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -17,9 +15,13 @@ const TVPage: React.FC<TVPageProps> = ({ category }) => {
   }, [category]);
 
   return (
-    <div>
-      <h2>{category.toUpperCase()}</h2>
-      <MovieList movies={movies} />
+    <div className="container mt-4">
+      <h2 className="text-center mb-4">{category.toUpperCase()} TV Shows</h2>
+      <div className="row">
+        <div className="col">
+          <MovieList movies={movies} />
+        </div>
+      </div>
     </div>
   );
 };

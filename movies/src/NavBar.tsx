@@ -12,6 +12,7 @@ interface NavBarProps {
 
 const NavBar: React.FC<NavBarProps> = ({ onSelectList, onFetchHomeMovies }) => {
   const handleListChange = (list: string) => {
+    console.log('Selected list:', list);
     if (list === 'Home') {
       onFetchHomeMovies(); // Call the function to fetch movies for the home page
     } else {
