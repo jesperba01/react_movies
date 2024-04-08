@@ -22,6 +22,25 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onAddToFavorit
     onRemoveFromFavorites(movie.id);
   };
 
+  const handleClick = () => {
+    // Check if the screen width is less than 1200px
+    if (window.innerWidth < 1200) {
+      // Handle button click differently for smaller screens
+      if (isFavorite) {
+        handleRemoveFromFavorites();
+      } else {
+        handleAddToFavorites();
+      }
+    } else {
+      // For larger screens, toggle favorites on hover
+      if (isFavorite) {
+        handleRemoveFromFavorites();
+      } else {
+        handleAddToFavorites();
+      }
+    }
+  };
+
   return (
     <Card className="shadow movie-card">
       <div className="movieImageContainer">
@@ -33,15 +52,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onAddToFavorit
           />
         )}
         <Pie className="pieOverlay" percentage={movie.vote_average * 10} />
-        {isFavorite ? (
-          <button onClick={handleRemoveFromFavorites} className="heart-overlay">
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
-        ) : (
-          <button onClick={handleAddToFavorites} className="heart-overlay">
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
-        )}
+        <button onClick={handleClick} className="heart-overlay">
+          {isFavorite ? <FontAwesomeIcon icon={faTimes} /> : <FontAwesomeIcon icon={faHeart} />}
+        </button>
       </div>
       <Card.Body className="movieContainer-p">
         <Card.Title>{movie.name || movie.title}</Card.Title>

@@ -68,6 +68,16 @@
   display: none;
 }
 
+
+@media (max-width: 1200px) {
+  .movie-card:hover .heart-overlay {
+    display: none; 
+  }
+  .heart-overlay {
+    display: block; 
+  }
+}
+
 .heart-overlay:hover {
   background-color: #ff0000;
   color: white;

@@ -25,7 +25,6 @@ const FavouritesList: React.FC = () => {
   const addToFavorites = (movie: Movie) => {
     const isAlreadyFavorite = favourites.some((favMovie) => favMovie.id === movie.id);
   
-    // If the movie ID is not already in the favorites list, add it
     if (!isAlreadyFavorite) {
       const updatedFavourites = [...favourites, movie];
       setFavourites(updatedFavourites);
@@ -49,7 +48,7 @@ const FavouritesList: React.FC = () => {
           <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" key={movie.id}>
             <MovieCard
               movie={movie}
-              isFavorite={true} // Set isFavorite to true for movies in favorites list
+              isFavorite={true}
               onAddToFavorites={addToFavorites}
               onRemoveFromFavorites={removeFromFavorites}
             />
