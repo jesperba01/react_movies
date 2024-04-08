@@ -9,6 +9,8 @@ interface Movie {
   poster_path: string;
   release_date: string;
   vote_average: number;
+  name: string;
+  first_air_date: string;
 }
 
 interface MovieCardProps {
@@ -29,8 +31,10 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         <Pie className="pieOverlay" percentage={movie.vote_average * 10} />
       </div>
       <Card.Body className='movieContainer-p'>
+        <Card.Title>{movie.name}</Card.Title>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.release_date}</Card.Text>
+        <Card.Text>{movie.first_air_date}</Card.Text>
       </Card.Body>
     </Card>
   );

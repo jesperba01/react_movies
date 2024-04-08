@@ -6,6 +6,8 @@ export interface Movie {
   poster_path: string;
   release_date: string;
   vote_average: number;
+  name: string;
+  first_air_date: string;
 }
 
 const apiKey = "4ba04b36da1b0f7da8622918c9908ef8";

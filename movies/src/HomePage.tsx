@@ -55,21 +55,25 @@ const HomePage: React.FC = () => {
   return (
     <div className="container">
       {showMovieLists && (
-        <div className="">
-          <div className="">
+        <div>
+          <div>
             <h2>Popular Movies</h2>
+            <br />
             <MovieList movies={popularMovies} isHomePage />
           </div>
-          <div className="">
+          <div>
             <h2>Top Rated Movies</h2>
+            <br />
             <MovieList movies={topRatedMovies} isHomePage />
           </div>
-          <div className="">
+          <div>
             <h2>Popular TV Shows</h2>
+            <br />
             <MovieList movies={popularTVMovies} isHomePage />
           </div>
-          <div className="">
+          <div>
             <h2>Top Rated TV Shows</h2>
+            <br />
             <MovieList movies={topRatedTVMovies} isHomePage />
           </div>
         </div>
