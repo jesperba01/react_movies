@@ -10,12 +10,23 @@ import { Movie } from './Api';
 // Define your App component
 const App: React.FC = () => {
   // Define state and function for fetching home movies
-  const [homeMovies, setHomeMovies] = useState<Movie[]>([]);
+  const [homeMovies, setHomeMovies] = useState<Movie[]>([]); // Declare state variable
 
-  const fetchHomeMovies = () => {
-    // Implement logic to fetch movies for the home page
-    // For example:
-    // fetchMovies('popular').then((data) => setHomeMovies(data));
+  const fetchHomeMovies = async () => {
+    try {
+
+      const response = await fetch('/');
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch movies');
+      }
+
+      const data = await response.json();
+      
+      setHomeMovies(data);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
   };
 
   const handleAddToFavorites = (movie: Movie) => {
@@ -37,7 +48,6 @@ const App: React.FC = () => {
         <NavBar onSelectList={fetchHomeMovies} onFetchHomeMovies={fetchHomeMovies} /> 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          {/* Pass onAddToFavorites prop to the MoviePage component */}
           <Route path="/movies/:category" element={<MoviePage onAddToFavorites={handleAddToFavorites} />} />
           <Route path="/tv/:category" element={<TVPage onAddToFavorites={handleAddToFavorites} />} /> 
           <Route path="/favorites" element={<FavouritesList />} />
