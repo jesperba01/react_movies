@@ -8,15 +8,29 @@ const MoviePage: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   useEffect(() => {
-    const movieCategory = category === 'toprated' ? 'toprated' : 'popular';
+    let movieCategory = 'popular';
+
+    if (category === 'toprated') {
+      movieCategory = 'toprated';
+    } else if (category === 'upcoming') {
+      movieCategory = 'upcoming';
+    }
+
     fetchMovies(movieCategory)
       .then((data) => setMovies(data))
       .catch((error) => console.error('Error fetching movies:', error));
   }, [category]);
 
+  const getCategoryDisplayName = () => {
+    if (category === 'upcoming') {
+      return 'Upcoming';
+    }
+    return category.toUpperCase();
+  };
+
   return (
     <div className="container mt-4">
-      <h2 className="text-center mb-4">{category.toUpperCase()} Movies</h2>
+      <h2 className="text-center mb-4">{getCategoryDisplayName()} Movies</h2>
       <div className="row">
         <div className="col">
           <MovieList movies={movies} />

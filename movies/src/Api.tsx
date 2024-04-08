@@ -10,11 +10,12 @@ export interface Movie {
   first_air_date: string;
 }
 
-const apiKey = "4ba04b36da1b0f7da8622918c9908ef8";
 const popular = "https://api.themoviedb.org/3/movie/popular?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 const toprated = "https://api.themoviedb.org/3/movie/top_rated?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 const popular_tv = "https://api.themoviedb.org/3/tv/popular?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 const toprated_tv = "https://api.themoviedb.org/3/tv/top_rated?api_key=4ba04b36da1b0f7da8622918c9908ef8";
+const upcoming = "https://api.themoviedb.org/3/movie/upcoming?api_key=4ba04b36da1b0f7da8622918c9908ef8";
+const airingToday = "https://api.themoviedb.org/3/tv/airing_today?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 
 export const fetchMovies = async (selectedList: string, limit?: number): Promise<Movie[]> => {
   try {
@@ -28,6 +29,10 @@ export const fetchMovies = async (selectedList: string, limit?: number): Promise
       url = toprated_tv;
     } else if (selectedList === 'popular_tv') {
       url = popular_tv;
+    } else if (selectedList === 'upcoming') {
+      url = upcoming;
+    } else if (selectedList === 'airingToday') {
+      url = airingToday;
     } else {
       throw new Error('Invalid category selected');
     }
