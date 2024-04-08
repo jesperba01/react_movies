@@ -3,24 +3,23 @@ import Card from 'react-bootstrap/Card';
 import Pie from './Pie';
 import { Movie } from './Api';
 import './MovieCard.css';
+import { faHeart, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface MovieCardProps {
   movie: Movie;
+  isFavorite: boolean;
   onAddToFavorites: (movie: Movie) => void;
-  onRemoveFromFavorites?: (movieId: number) => void; 
+  onRemoveFromFavorites: (movieId: number) => void;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onAddToFavorites, onRemoveFromFavorites }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onAddToFavorites, onRemoveFromFavorites }) => {
   const handleAddToFavorites = () => {
-    if (onAddToFavorites) {
-      onAddToFavorites(movie);
-    }
+    onAddToFavorites(movie);
   };
 
   const handleRemoveFromFavorites = () => {
-    if (onRemoveFromFavorites) {
-      onRemoveFromFavorites(movie.id);
-    }
+    onRemoveFromFavorites(movie.id);
   };
 
   return (
@@ -34,14 +33,13 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onAddToFavorites, onRemove
           />
         )}
         <Pie className="pieOverlay" percentage={movie.vote_average * 10} />
-        {onRemoveFromFavorites && (
+        {isFavorite ? (
           <button onClick={handleRemoveFromFavorites} className="heart-overlay">
-            Remove from Favorites
+            <FontAwesomeIcon icon={faTimes} />
           </button>
-        )}
-        {!onRemoveFromFavorites && (
+        ) : (
           <button onClick={handleAddToFavorites} className="heart-overlay">
-            Add to Favorites
+            <FontAwesomeIcon icon={faHeart} />
           </button>
         )}
       </div>

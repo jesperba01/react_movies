@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   const handleAddToFavorites = (movie: Movie) => {
     const currentFavorites = JSON.parse(localStorage.getItem('react-movie-app-favourites') || '[]') as Movie[];
-
+    console.log('Movie:', movie);
     const isAlreadyFavorite = currentFavorites.some((favMovie) => favMovie.id === movie.id);
 
     if (!isAlreadyFavorite) {

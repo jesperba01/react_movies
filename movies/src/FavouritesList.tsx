@@ -49,6 +49,7 @@ const FavouritesList: React.FC = () => {
           <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" key={movie.id}>
             <MovieCard
               movie={movie}
+              isFavorite={true} // Set isFavorite to true for movies in favorites list
               onAddToFavorites={addToFavorites}
               onRemoveFromFavorites={removeFromFavorites}
             />
