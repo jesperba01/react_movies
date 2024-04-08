@@ -14,9 +14,9 @@ const NavBar: React.FC<NavBarProps> = ({ onSelectList, onFetchHomeMovies }) => {
   const handleListChange = (list: string) => {
     console.log('Selected list:', list);
     if (list === 'Home') {
-      onFetchHomeMovies(); // Call the function to fetch movies for the home page
+      onFetchHomeMovies();
     } else {
-      onSelectList(list); // Pass the selected list to onSelectList function
+      onSelectList(list);
     }
   };
 
@@ -37,6 +37,7 @@ const NavBar: React.FC<NavBarProps> = ({ onSelectList, onFetchHomeMovies }) => {
               <NavDropdown.Item as={Link} to="/tv/toprated" onClick={() => handleListChange('toprated_tv')}>Top Rated</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/tv/airingToday" onClick={() => handleListChange('airingToday')}>Airing Today</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link as={Link} to="/favorites" onClick={() => handleListChange('favorites')}>Favorites</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

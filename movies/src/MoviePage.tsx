@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovies, Movie } from './Api';
 import MovieList from './MovieList';
 
-const MoviePage: React.FC = () => {
+const MoviePage: React.FC<{ onAddToFavorites: (movie: Movie) => void }> = ({ onAddToFavorites }) => {
   const { category = 'popular' } = useParams();
   const [movies, setMovies] = useState<Movie[]>([]);
 
@@ -33,7 +33,7 @@ const MoviePage: React.FC = () => {
       <h2 className="text-center mb-4">{getCategoryDisplayName()} Movies</h2>
       <div className="row">
         <div className="col">
-          <MovieList movies={movies} />
+          <MovieList movies={movies} onAddToFavorites={onAddToFavorites} />
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ const popular_tv = "https://api.themoviedb.org/3/tv/popular?api_key=4ba04b36da1b
 const toprated_tv = "https://api.themoviedb.org/3/tv/top_rated?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 const upcoming = "https://api.themoviedb.org/3/movie/upcoming?api_key=4ba04b36da1b0f7da8622918c9908ef8";
 const airingToday = "https://api.themoviedb.org/3/tv/airing_today?api_key=4ba04b36da1b0f7da8622918c9908ef8";
+const searchBar = "https://api.themoviedb.org/3/movie/{movie_id}/keywords?api_key=4ba04b36da1b0f7da8622918c9908ef8"
 
 export const fetchMovies = async (selectedList: string, limit?: number): Promise<Movie[]> => {
   try {

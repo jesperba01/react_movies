@@ -1,23 +1,28 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Pie from './Pie';
+import { Movie } from './Api';
 import './MovieCard.css';
-
-interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  release_date: string;
-  vote_average: number;
-  name: string;
-  first_air_date: string;
-}
 
 interface MovieCardProps {
   movie: Movie;
+  onAddToFavorites: (movie: Movie) => void;
+  onRemoveFromFavorites?: (movieId: number) => void; 
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, onAddToFavorites, onRemoveFromFavorites }) => {
+  const handleAddToFavorites = () => {
+    if (onAddToFavorites) {
+      onAddToFavorites(movie);
+    }
+  };
+
+  const handleRemoveFromFavorites = () => {
+    if (onRemoveFromFavorites) {
+      onRemoveFromFavorites(movie.id);
+    }
+  };
+
   return (
     <Card className="shadow movie-card">
       <div className="movieImageContainer">
@@ -29,14 +34,23 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           />
         )}
         <Pie className="pieOverlay" percentage={movie.vote_average * 10} />
+        {onRemoveFromFavorites && (
+          <button onClick={handleRemoveFromFavorites} className="heart-overlay">
+            Remove from Favorites
+          </button>
+        )}
+        {!onRemoveFromFavorites && (
+          <button onClick={handleAddToFavorites} className="heart-overlay">
+            Add to Favorites
+          </button>
+        )}
       </div>
-      <Card.Body className='movieContainer-p'>
-        <Card.Title>{movie.name}</Card.Title>
-        <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.release_date}</Card.Text>
-        <Card.Text>{movie.first_air_date}</Card.Text>
+      <Card.Body className="movieContainer-p">
+        <Card.Title>{movie.name || movie.title}</Card.Title>
+        <Card.Text>{movie.release_date || movie.first_air_date}</Card.Text>
       </Card.Body>
     </Card>
   );
 };
+
 export default MovieCard;
