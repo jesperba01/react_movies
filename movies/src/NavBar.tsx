@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -11,6 +11,8 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onSelectList, onFetchHomeMovies }) => {
+  const [searchQuery, setSearchQuery] = useState('');
+
   const handleListChange = (list: string) => {
     console.log('Selected list:', list);
     if (list === 'Home') {
@@ -39,6 +41,7 @@ const NavBar: React.FC<NavBarProps> = ({ onSelectList, onFetchHomeMovies }) => {
             </NavDropdown>
             <Nav.Link as={Link} to="/favorites" onClick={() => handleListChange('favorites')}>Favorites</Nav.Link>
           </Nav>
+          <Nav.Link as={Link} to="/Search">Search For Movies</Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

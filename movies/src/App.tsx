@@ -6,29 +6,27 @@ import MoviePage from './MoviePage';
 import TVPage from './TVPage';
 import FavouritesList from './FavouritesList';
 import { Movie } from './Api';
+import Search from './Search';
 
-// Define your App component
+
 const App: React.FC = () => {
-  // Define state and function for fetching home movies
-  const [homeMovies, setHomeMovies] = useState<Movie[]>([]); // Declare state variable
+  const [homeMovies, setHomeMovies] = useState<Movie[]>([]);
 
   const fetchHomeMovies = async () => {
     try {
-
-      const response = await fetch('/');
-      
+      const response = await fetch('<replace_with_correct_api_endpoint>');
+  
       if (!response.ok) {
         throw new Error('Failed to fetch movies');
       }
-
+  
       const data = await response.json();
-      
+  
       setHomeMovies(data);
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
   };
-
   const handleAddToFavorites = (movie: Movie) => {
     const currentFavorites = JSON.parse(localStorage.getItem('react-movie-app-favourites') || '[]') as Movie[];
     console.log('Movie:', movie);
@@ -51,6 +49,7 @@ const App: React.FC = () => {
           <Route path="/movies/:category" element={<MoviePage onAddToFavorites={handleAddToFavorites} />} />
           <Route path="/tv/:category" element={<TVPage onAddToFavorites={handleAddToFavorites} />} /> 
           <Route path="/favorites" element={<FavouritesList />} />
+          <Route path="/search" element={<Search onAddToFavorites={handleAddToFavorites} />} />
         </Routes>
       </div>
     </Router>

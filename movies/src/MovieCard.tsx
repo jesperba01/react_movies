@@ -48,7 +48,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, isFavorite, onAddToFavorit
           <img
             className="movieImage img-fluid"
             src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-            alt={`${movie.title} Poster`}
+            alt={`${movie.name || movie.title} Poster`}
           />
         )}
         <Pie className="pieOverlay" percentage={movie.vote_average * 10} />
