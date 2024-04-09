@@ -1,7 +1,7 @@
 {
   "name": "movies",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "engines": {
     "node": ">=14.0.0"
   },
